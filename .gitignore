@@ -1,0 +1,41 @@
+# General Node.js and Python files to ignore
+node_modules/
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.db
+*.sqlite
+*.env
+*.DS_Store
+.backup.yml
+
+# Frontend (React) specific ignores
+frontend/node_modules/
+frontend/build/
+frontend/.env
+frontend/.cache/
+frontend/.next/
+
+# Backend (Flask) specific ignores
+backend/instance/
+backend/migrations/
+backend/.env
+backend/.flaskenv
+backend/*.db
+backend/env/
+backend/llms/
+backend/venv/
+backend/services/tools/token.json
+backend/services/tools/credentials.json
+
+backend-django-ignore/env/
+
+# Logs
+*.log
+
+# macOS specific ignores
+.DS_Store
+
+# Visual Studio Code
+.vscode/

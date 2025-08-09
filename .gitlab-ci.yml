@@ -1,0 +1,43 @@
+# image: docker:latest
+
+# services:
+#   - name: docker:dind
+#     command: ["--mtu=1450"]  # Optional, helps in some network configurations
+
+# variables:
+#   DOCKER_HOST: tcp://docker:2375
+#   DOCKER_DRIVER: overlay2
+#   DOCKER_TLS_CERTDIR: ""
+#   ECR_REPOSITORY_URI: "328122090963.dkr.ecr.us-east-1.amazonaws.com/agentorc-backend"
+#   AWS_DEFAULT_REGION: "us-east-1"
+#   ECS_CLUSTER: "agentorc-acs-cluster"
+#   ECS_SERVICE: "agentorc-service"
+
+# stages:
+#   - build
+#   - deploy
+
+# before_script:
+#   - docker info
+
+# build_backend:
+#   stage: build
+#   script:
+#     - cd backend
+#     - docker build -t agentorc-backend .
+#     - docker tag agentorc-backend:latest $ECR_REPOSITORY_URI:latest
+#   only:
+#     - develop
+
+# deploy_backend:
+#   stage: deploy
+#   before_script:
+#     - echo "Checking AWS environment variables..."
+#     - apk update && apk add --no-cache aws-cli jq
+#   script:
+#     # - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 328122090963.dkr.ecr.us-east-1.amazonaws.com
+#     - docker push $ECR_REPOSITORY_URI:latest
+#     - echo "Updating ECS service..."
+#     - aws ecs update-service --cluster agentorc-acs-cluster --service agentorc-service --force-new-deployment --region us-east-1
+#   only:
+#     - develop
